@@ -368,7 +368,9 @@ public class MediaPlayerCtrl : MonoBehaviour
 			}
 			else
 			{
+				Debug.Log("here");
 				Call_Load(strName,0);
+				DownloadStreamingVideoAndLoad("http://cdn.cs50.net/2016/fall/lectures/5/week5_360_TB.mp4");
 			}
 #elif UNITY_STANDALONE
 			Call_Load(strName,0);
