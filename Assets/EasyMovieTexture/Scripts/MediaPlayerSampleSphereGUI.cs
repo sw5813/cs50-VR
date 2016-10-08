@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MedaiPlayerSampleSphereGUI : MonoBehaviour {
+public class MediaPlayerSampleSphereGUI : MonoBehaviour {
 	
 	public MediaPlayerCtrl scrMedia;
 	// Use this for initialization

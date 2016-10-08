@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-
-
 #if !UNITY_WEBGL
 
 public class SeekBarCtrl : MonoBehaviour ,IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler{
@@ -13,7 +11,6 @@ public class SeekBarCtrl : MonoBehaviour ,IPointerDownHandler, IPointerUpHandler
 	public MediaPlayerCtrl m_srcVideo;
 	public Slider m_srcSlider;
 	public float m_fDragTime = 0.2f;
-
 
 	bool m_bActiveDrag = true;
 	bool m_bUpdate = true;
@@ -24,9 +21,7 @@ public class SeekBarCtrl : MonoBehaviour ,IPointerDownHandler, IPointerUpHandler
 
 	// Use this for initialization
 	void Start () {
-	
 	}
-
 
 	// Update is called once per frame
 	void Update () {
@@ -42,18 +37,14 @@ public class SeekBarCtrl : MonoBehaviour ,IPointerDownHandler, IPointerUpHandler
 			}
 		}
 
-
-
-		if (m_bUpdate == false)
+		if (m_bUpdate == false) {
 			return;
+		}
 			
 		if (m_srcVideo != null) {
-
 			if (m_srcSlider != null) {
 				m_srcSlider.value = m_srcVideo.GetSeekBarValue();
-
-			}
-			
+			}	
 		}
 	
 	}
@@ -61,38 +52,23 @@ public class SeekBarCtrl : MonoBehaviour ,IPointerDownHandler, IPointerUpHandler
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		Debug.Log("OnPointerEnter:");  
-
 		m_bUpdate = false;
-
-
-
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		Debug.Log("OnPointerExit:");
-
 		m_bUpdate = true;
-
-
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-
-
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
 	
 		m_srcVideo.SetSeekBarValue (m_srcSlider.value);
-
-
-
-
-
-
 	}
 
 
