@@ -1044,7 +1044,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		
 	}
 	
-	private bool Call_Load(string strFileName, int iSeek)
+	public bool Call_Load(string strFileName, int iSeek)
 	{
 #if UNITY_5
 		if( SystemInfo.graphicsMultiThreaded == true)
@@ -1513,7 +1513,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		VideoPlayerPluginDestroyInstance(m_iID);
 	}
 	
-	private bool Call_Load(string strFileName, int iSeek)
+	public bool Call_Load(string strFileName, int iSeek)
 	{
 		if( m_iID == -1)
 		{
