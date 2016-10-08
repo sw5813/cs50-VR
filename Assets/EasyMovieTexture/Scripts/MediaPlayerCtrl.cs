@@ -336,6 +336,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
         if (m_bFirst == false)
         {
+        	
 
             string strName = m_strFileName.Trim();
 
