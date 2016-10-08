@@ -322,7 +322,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 
     protected virtual void Update()
     {
-    	Debug.Log("Update parent");
         if (string.IsNullOrEmpty(m_strFileName))
         {
             return;
@@ -336,7 +335,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
         if (m_bFirst == false)
         {
-        	
+
 
             string strName = m_strFileName.Trim();
 
@@ -3328,33 +3327,26 @@ void LoadVideoPart2 ()
 
         Debug.Log("DownloadStreamingVideo : " + strURL);
 
-
         WWW www = new WWW(strURL);
 
         yield return www;
 
-        if (string.IsNullOrEmpty(www.error))
-        {
-
-            if (System.IO.Directory.Exists(Application.persistentDataPath + "/Data") == false)
+        if (string.IsNullOrEmpty(www.error)) {
+            if (System.IO.Directory.Exists(Application.persistentDataPath + "/Data") == false) {
                 System.IO.Directory.CreateDirectory(Application.persistentDataPath + "/Data");
+            }
 
             string write_path = Application.persistentDataPath + "/Data" + strURL.Substring(strURL.LastIndexOf("/"));
 
-            /*	if(System.IO.File.Exists(write_path) == true)
-			{
+            if (System.IO.File.Exists(write_path) == true) {
 				Debug.Log("Delete : " + write_path);
 				System.IO.File.Delete(write_path);
 			}
-		*/
+
             System.IO.File.WriteAllBytes(write_path, www.bytes);
-
             Load("file://" + write_path);
-        }
-        else
-        {
+        } else {
             Debug.Log(www.error);
-
         }
 
         www.Dispose();

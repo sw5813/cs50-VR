@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.IO;
 
 public unsafe class Vrwer : MediaPlayerCtrl {
 
@@ -16,24 +16,33 @@ public unsafe class Vrwer : MediaPlayerCtrl {
 			Call_SetLooping(m_bLoop);
 		}
 
-		Debug.Log("Update child");
-
 		base.Update();
 	}
 
 	void loadFromSD() {
-//		return;
 		string strURL = "week5_360_TB.mp4";
 		string sd_path = "file://" + Application.persistentDataPath + "/" + strURL;
 //		string path = "showreel.mp4";
 //		Debug.Log(sd_path);
 
-		Debug.Log("trying");
-		if (Call_Load(sd_path, 0)) {
-			Debug.Log("yes, working");
+		// Debug.Log("PAPSIAAA");
+		// DownloadStreamingVideoAndLoad("http://cdn.cs50.net/2016/fall/lectures/5/week5_360_TB.mp4");
+		// Debug.Log("PAPSI222");
+
+		if (File.Exists(sd_path)) {
+			Debug.Log("found "+sd_path);
 		} else {
-			Debug.Log("nope, not");
+			Debug.Log("not found "+sd_path);
 		}
-		Debug.Log("tried");
+		
+		Debug.Log("trying "+sd_path);
+		try {
+			Call_Load(sd_path, 0);
+			Debug.Log("Successfully executed Call_Load.");
+		} catch (System.Exception e) {
+			Debug.Log("Failed to Call_Load.");
+			Debug.LogError(e);
+		}
+
 	}
 }
