@@ -2367,7 +2367,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 		} else {
 			//do {
 			#if (UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5)
-		  
 			if (listVideo.Count > 0) {
 				SetTextureFromUnity (m_VideoTexture.GetNativeTexturePtr (), m_iWidth, m_iHeight, listVideo.Dequeue());
 				GL.IssuePluginEvent (GetRenderEventFunc (), 7000);
@@ -2401,7 +2400,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 						fLastFrameTime = fpts;
 					}
 				}
-
 			}
 
 			if (audioSource != null &&  Call_GetDuration() > 0) {
@@ -2415,10 +2413,10 @@ public class MediaPlayerCtrl : MonoBehaviour
 			}
 
 			#else
-					//var imageBufferPtr = new IntPtr (convertedFrameAddress);
+			//var imageBufferPtr = new IntPtr (convertedFrameAddress);
 			if (listVideo.Count > 0) {
-					m_VideoTexture.LoadRawTextureData(listVideo.Dequeue());
-					m_VideoTexture.Apply();
+				m_VideoTexture.LoadRawTextureData(listVideo.Dequeue());
+				m_VideoTexture.Apply();
 			}
 
 			if (listVideoPts.Count > 0) {
@@ -2431,7 +2429,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 				} else {
 					fLastFrameTime = fpts;
 				}
-
 			}
 
 			if (audioSource != null) {
@@ -2445,102 +2442,84 @@ public class MediaPlayerCtrl : MonoBehaviour
 			}
 			#endif
 
-					if (m_TargetMaterial != null) {
-						for (int i = 0; i < m_TargetMaterial.Length; i++)
-						{
-							if (m_TargetMaterial [i] == null)
-								continue;
+			if (m_TargetMaterial != null) {
+				for (int i = 0; i < m_TargetMaterial.Length; i++)
+				{
+					if (m_TargetMaterial [i] == null)
+						continue;
 
-							if (m_TargetMaterial [i].GetComponent<MeshRenderer> () != null) {
-								if (m_TargetMaterial [i].GetComponent<MeshRenderer> ().material.mainTexture != m_VideoTexture) {
-									m_TargetMaterial [i].GetComponent<MeshRenderer> ().material.mainTexture = m_VideoTexture;
-								}
-							}
-
-							if (m_TargetMaterial [i].GetComponent<RawImage> () != null) {
-								if (m_TargetMaterial [i].GetComponent<RawImage> ().texture != m_VideoTexture) {
-									m_TargetMaterial [i].GetComponent<RawImage> ().texture = m_VideoTexture;
-								}
-							}
-
+					if (m_TargetMaterial [i].GetComponent<MeshRenderer> () != null) {
+						if (m_TargetMaterial [i].GetComponent<MeshRenderer> ().material.mainTexture != m_VideoTexture) {
+							m_TargetMaterial [i].GetComponent<MeshRenderer> ().material.mainTexture = m_VideoTexture;
 						}
 					}
 
-				if (bVideoFirstFrameReady == true) {
-					if (OnVideoFirstFrameReady != null) {
-						OnVideoFirstFrameReady ();
-						bVideoFirstFrameReady = false;
+					if (m_TargetMaterial [i].GetComponent<RawImage> () != null) {
+						if (m_TargetMaterial [i].GetComponent<RawImage> ().texture != m_VideoTexture) {
+							m_TargetMaterial [i].GetComponent<RawImage> ().texture = m_VideoTexture;
+						}
 					}
 
-					for (int i = 0; i < listAudio.Count; i++)
-					{
+				}
+			}
 
-						if (audioSource == null /*&& (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + ((float)Call_GetDuration() / 1000.0f))) > 0*/) {
-							audioSource = gameObject.AddComponent<AudioSource>();
-						}
+			if (bVideoFirstFrameReady == true) {
+				if (OnVideoFirstFrameReady != null) {
+					OnVideoFirstFrameReady ();
+					bVideoFirstFrameReady = false;
+				}
 
-						if (audioClip == null && audioSource != null ) {
+				for (int i = 0; i < listAudio.Count; i++)
+				{
+					if (audioSource == null/*&& (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + ((float)Call_GetDuration() / 1000.0f))) > 0*/) {
+						audioSource = gameObject.AddComponent<AudioSource>();
+					}
 
-							/*if ((float)Call_GetDuration() <= 0) {
-						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 600.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,true,OnAudioRead);
-					} else*/
-							{
-								/*if (Call_GetDuration () > 1500000) {
-							audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 10.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
-						} else{
-							audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 600.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
-						}*/
-	#if UNITY_5
-								audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
+					if (audioClip == null && audioSource != null ) {
+						// if ((float)Call_GetDuration() <= 0) {
+						// 	audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 600.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,true,OnAudioRead);
+						// } else
+						// {
+						// if (Call_GetDuration () > 1500000) {
+						// 	audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 10.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
+						// } else {
+						// 	audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 600.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
+						// }
+						#if UNITY_5
+						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
+						#else
+						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false,false);
+						#endif
+					}
 
-	#else
-	audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false,false);
+					audioSource.clip = audioClip;
+					
+					//audioSource.Play();
+					//AudioSource.PlayClipAtPoint(audioClip,new Vector3(0,0,0));
 
-	#endif
 
-							}
+					if (audioSource != null && Call_GetDuration() >0 ) {
+						if (listAudioPts.Count > i) {
+							if (listAudioPts [i] >= 0) {
+								// if (listAudioPts [i] > (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime [i] + ((float)Call_GetDuration () / 1000.0f)))) {
+								// 	audioClip.SetData (listAudio [i], (int)(((double)pAudioCodecContext->sample_rate) * listAudioPtsTime [i]));
+								// } else
+								{
+									//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]	+" " +  fLastFrameTime);
 
-							audioSource.clip = audioClip;
-							//audioSource.Play();
+									audioClip.SetData(listAudio[i],(int)(listAudioPts[i] %  (pAudioCodecContext->sample_rate * 600.0f))  );
 
-							//AudioSource.PlayClipAtPoint(audioClip,new Vector3(0,0,0));
-						}
-
-						if (audioSource != null && Call_GetDuration() >0 ) {
-
-							if (listAudioPts.Count > i) {
-								if (listAudioPts [i] >= 0) {
-
-									{
-										/*if (listAudioPts [i] > (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime [i] + ((float)Call_GetDuration () / 1000.0f)))) {
-									audioClip.SetData (listAudio [i], (int)(((double)pAudioCodecContext->sample_rate) * listAudioPtsTime [i]));
-								} else*/ {
-											//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]	+" " +  fLastFrameTime);
-
-											audioClip.SetData(listAudio[i],(int)(listAudioPts[i] %  (pAudioCodecContext->sample_rate * 600.0f))  );
-
-										}
-									}
 								}
 							}
-
-							//if (audioSource.isPlaying == false)
-							//audioSource.Play();
 						}
-
+						//if (audioSource.isPlaying == false)
+						//audioSource.Play();
 					}
+				}
+			}
 
-				} 
-			
-
-				} //while(fLastFrameTime < fCurrentSeekTime );
-
-			//Debug.Log(listAudio.Count);
-
-	
-
+			//} while(fLastFrameTime < fCurrentSeekTime );
 		}
-
 	}
 	
 	private void Call_SetVolume(float fVolume)
