@@ -1,6 +1,6 @@
 // Modifications:
 // - making Call_Load public.
-// 
+// - update Update() signature
 
 using UnityEngine;
 using System.Runtime.InteropServices;
@@ -320,8 +320,9 @@ public class MediaPlayerCtrl : MonoBehaviour
         }
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
+    	Debug.Log("Update parent");
         if (string.IsNullOrEmpty(m_strFileName))
         {
             return;
