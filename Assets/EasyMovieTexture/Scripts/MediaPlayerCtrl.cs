@@ -1,4 +1,6 @@
-
+// Modifications:
+// - making Call_Load public.
+// 
 
 using UnityEngine;
 using System.Runtime.InteropServices;
@@ -144,7 +146,7 @@ public class MediaPlayerCtrl : MonoBehaviour
         SCALE_X_TO_Y_2 = 6,
     }
 
-    bool m_bFirst = false;
+    public bool m_bFirst = false;
 
     public MEDIA_SCALE m_ScaleValue;
     public GameObject[] m_objResize = null;
@@ -318,10 +320,8 @@ public class MediaPlayerCtrl : MonoBehaviour
         }
     }
 
-    void Update()
+    protected void Update()
     {
-
-
         if (string.IsNullOrEmpty(m_strFileName))
         {
             return;
@@ -335,10 +335,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 
         if (m_bFirst == false)
         {
-
-
-
-
 
             string strName = m_strFileName.Trim();
 
@@ -380,8 +376,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 			
             Call_SetLooping(m_bLoop);
             m_bFirst = true;
-
-
         }
 
 
@@ -989,7 +983,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 	
 	private AndroidJavaObject javaObj = null;
 	
-	private AndroidJavaObject GetJavaObject()
+	protected AndroidJavaObject GetJavaObject()
 	{
 		if (javaObj == null)
 		{
@@ -1254,7 +1248,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 #endif
 	}
 	
-	private void Call_SetLooping(bool bLoop)
+	public void Call_SetLooping(bool bLoop)
 	{
 		GetJavaObject().Call("SetLooping",bLoop);
 	}
@@ -1699,7 +1693,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		
 	}
 	
-	private void Call_SetLooping(bool bLoop)
+	public void Call_SetLooping(bool bLoop)
 	{
 		VideoPlayerPluginSetLoop(m_iID, bLoop);
 	}
@@ -3264,7 +3258,7 @@ void LoadVideoPart2 ()
 		
 	}
 	
-	private void Call_SetLooping(bool bLoop)
+	public void Call_SetLooping(bool bLoop)
 	{
 		
 	}
