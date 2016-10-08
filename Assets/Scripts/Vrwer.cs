@@ -5,10 +5,6 @@ public unsafe class Vrwer : MediaPlayerCtrl {
 
 	bool bfirst = true;
 
-	// void Start() {
-	// 	// m_bFirst = false;
-	// }
-
 	protected override void Update() {
 		if (bfirst) {
 			bfirst = false;
@@ -32,6 +28,12 @@ public unsafe class Vrwer : MediaPlayerCtrl {
 //		string path = "showreel.mp4";
 //		Debug.Log(sd_path);
 
-		Call_Load(sd_path, 0);
+		Debug.Log("trying");
+		if (Call_Load(sd_path, 0)) {
+			Debug.Log("yes, working");
+		} else {
+			Debug.Log("nope, not");
+		}
+		Debug.Log("tried");
 	}
 }
