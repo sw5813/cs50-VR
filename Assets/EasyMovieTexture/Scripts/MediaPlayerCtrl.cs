@@ -249,7 +249,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 	void OnApplicationQuit()
 	{
 		//if (System.IO.Directory.Exists(Application.persistentDataPath + "/Data") == true)
-		//    System.IO.Directory.Delete(Application.persistentDataPath + "/Data", true);
+		//	 System.IO.Directory.Delete(Application.persistentDataPath + "/Data", true);
 	}
 
 	bool m_bCheckFBO = false;
@@ -1204,7 +1204,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 	int m_iID = -1;
 	/// <summary>
-	/// ???????????????true???????    /// </summary>
+	/// ???????????????true???????	 /// </summary>
 	public bool ready
 	{
 		get
@@ -1566,8 +1566,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		m_CurrentState = MEDIAPLAYER_STATE.NOT_READY;
 
 		if (loader != null) {
-			while (loader.IsAlive == true)
-			{
+			while (loader.IsAlive == true) {
 				loader.Abort ();
 			}
 
@@ -1575,8 +1574,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		}
 		
 		if (threadVideo != null) {
-			while(threadVideo.IsAlive == true)
-			{
+			while (threadVideo.IsAlive == true) {
 				threadVideo.Abort();
 			}
 
@@ -1587,7 +1585,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 			listAudio.Clear();
 			listAudio = null;
 		}
-	   
 
 		if (listVideo != null) {
 			listVideo.Clear();
@@ -1834,8 +1831,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		
 		pDecodedFrame = ffmpeg.av_frame_alloc();
 		pDecodedAudioFrame = ffmpeg.av_frame_alloc();
-
-	   
+		
 		listAudio = new List<float[]>();
 		listVideo = new Queue<byte[]>();
 		listAudioPts = new List<double>();
@@ -1938,16 +1934,16 @@ public class MediaPlayerCtrl : MonoBehaviour
 				}
 			}
 
-		   // if (m_CurrentState == MEDIAPLAYER_STATE.PLAYING)
+			// if (m_CurrentState == MEDIAPLAYER_STATE.PLAYING)
 
 	  
-	   
+		
 
-   
+	
 			UpdateVideo();
 			Thread.Sleep(1);
 	  
-		   
+			
 		
 			//Thread.Sleep(5);
 		}
@@ -2048,15 +2044,15 @@ public class MediaPlayerCtrl : MonoBehaviour
 
 								  return;
 							}
-						} else {   
+						} else {	
 							throw new ApplicationException(@"Could not read frame");
 						}
 
 					}
 
-				   
+					
 
-		   // Debug.Log(pPacket->pts + " " + pCodecContext->pts_correction_last_pts );
+			// Debug.Log(pPacket->pts + " " + pCodecContext->pts_correction_last_pts );
 
 					if (pStreamAudio != null) {
 						if (pPacket->stream_index == iStreamAudioIndex) {
@@ -2124,7 +2120,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 											fAudioData = new float[buffer.Length / 4];
 											Buffer.BlockCopy(buffer, 0, fAudioData, 0, buffer.Length);
 
-								   
+									
 											lock( listAudio)
 											{
 												listAudio.Add(fAudioData);
@@ -2136,7 +2132,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 														//listAudioPts.Add(iSoundCount++ * iDataSize2 / 4 / pDecodedAudioFrame->channels );
 
 														/*if (m_strFileName.Contains(".m3u8") ) {
-															listAudioPts.Add(pDecodedAudioFrame->pkt_pts / pDecodedAudioFrame->pkt_duration *iDataSize2 / 4 / pDecodedAudioFrame->channels   );
+															listAudioPts.Add(pDecodedAudioFrame->pkt_pts / pDecodedAudioFrame->pkt_duration *iDataSize2 / 4 / pDecodedAudioFrame->channels	);
 														} else*/
 														{
 															listAudioPts.Add(iSoundCount++ * iDataSize2 / 4 / pDecodedAudioFrame->channels );
@@ -2144,15 +2140,15 @@ public class MediaPlayerCtrl : MonoBehaviour
 														
 														listAudioPtsTime.Add(pts);
 													}
-													   
+														
 												}
 											}
-								   
+									
 
-										   //Debug.Log ( iDataSize + " "+ pts + " " + pAudioCodecContext->sample_rate + " " + pDecodedAudioFrame->sample_rate + " "+ pDecodedAudioFrame->nb_samples + " " + pDecodedAudioFrame->pkt_pts + " " + pDecodedAudioFrame->pkt_pos);
+											//Debug.Log ( iDataSize + " "+ pts + " " + pAudioCodecContext->sample_rate + " " + pDecodedAudioFrame->sample_rate + " "+ pDecodedAudioFrame->nb_samples + " " + pDecodedAudioFrame->pkt_pts + " " + pDecodedAudioFrame->pkt_pos);
 											//Debug.Log ("sound decode time " + pts);
-											//audioClip.SetData(fAudioData,(int)(pAudioCodecContext->sample_rate * pts )   );
-											//audioClip.SetData(fAudioData,(int)(pDecodedAudioFrame->pkt_pts )   );
+											//audioClip.SetData(fAudioData,(int)(pAudioCodecContext->sample_rate * pts )	);
+											//audioClip.SetData(fAudioData,(int)(pDecodedAudioFrame->pkt_pts )	);
 
 											ffmpeg.swr_free(&pAudioCvtContext);
 
@@ -2308,11 +2304,10 @@ public class MediaPlayerCtrl : MonoBehaviour
 			}
 		}
 
-	 
-
 		if (m_CurrentState == MEDIAPLAYER_STATE.PLAYING && m_bIsFirstFrameReady == true && bInterrupt == false) {
-			if (listVideo.Count > 0)
+			if (listVideo.Count > 0) {
 				fCurrentSeekTime += Time.deltaTime * m_fSpeed;
+			}
 		}
 
 		//Debug.Log("last " + fLastFrameTime + " " + fCurrentSeekTime + " " + listVideo.Count);
@@ -2323,11 +2318,8 @@ public class MediaPlayerCtrl : MonoBehaviour
 			threadVideo.Start();
 		}
 
-		if (fLastFrameTime > fCurrentSeekTime - 0.1f  ) {
-
-			for (int i = 0; i < listAudio.Count; i++)
-			{
-
+		if (fLastFrameTime > fCurrentSeekTime - 0.1f) {
+			for (int i = 0; i < listAudio.Count; i++) {
 				if (listAudioPtsTime.Count > i) {
 					if (audioSource == null && (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + ((float)Call_GetDuration() / 1000.0f))) > 0) {
 						audioSource = gameObject.AddComponent<AudioSource>();
@@ -2335,47 +2327,35 @@ public class MediaPlayerCtrl : MonoBehaviour
 				}
 
 				if (audioClip == null && audioSource != null ) {
-
 					/*if ((float)Call_GetDuration() <= 0) {
 						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + 600.0f)),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,true,OnAudioRead);
 					} else*/
 					{
-						 
-							#if UNITY_5
-							audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
-
-							#else
-							audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false,false);
-
-							#endif
+						#if UNITY_5	
+						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false);
+						#else
+						audioClip = AudioClip.Create("videoAudio",(int)((float)pAudioCodecContext->sample_rate * 600.0f),pAudioCodecContext->channels,pAudioCodecContext->sample_rate,false,false);
+						#endif
 					}
-
-				 
 
 					audioSource.clip = audioClip;
 				}
 
 				if (audioSource != null  && Call_GetDuration() >0) {
-
 					if (listAudioPts.Count > i) {
 						if (listAudioPts [i] >= 0) {
-
+							/*if (listAudioPts[i] > (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + ((float)Call_GetDuration() / 1000.0f)))) {
+								audioClip.SetData(listAudio[i],(int)(((double)pAudioCodecContext->sample_rate) * listAudioPtsTime[i]  )	);
+							} else*/
 							{
-								/*if (listAudioPts[i] > (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime[i] + ((float)Call_GetDuration() / 1000.0f)))) {
-									audioClip.SetData(listAudio[i],(int)(((double)pAudioCodecContext->sample_rate) * listAudioPtsTime[i]  )   );
-								} else*/
-								{
-									//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]   +" " +  fLastFrameTime);
-									
-									audioClip.SetData(listAudio[i],(int)(listAudioPts[i] %  (pAudioCodecContext->sample_rate * 600.0f))  );
-									
-								}
+								//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]	+" " +  fLastFrameTime);
+								
+								audioClip.SetData(listAudio[i],(int)(listAudioPts[i] %  (pAudioCodecContext->sample_rate * 600.0f))  );
+								
 							}
 						}
 					}
-
 				}
-
 			}
 
 			if (audioSource != null && audioSource.isPlaying  && Call_GetDuration() >0) {
@@ -2385,26 +2365,22 @@ public class MediaPlayerCtrl : MonoBehaviour
 			}
 
 		} else {
-
-				//do
-				{
-	#if (UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5)
+			//do {
+			#if (UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5)
 		  
 			if (listVideo.Count > 0) {
-				
 				SetTextureFromUnity (m_VideoTexture.GetNativeTexturePtr (), m_iWidth, m_iHeight, listVideo.Dequeue());
 				GL.IssuePluginEvent (GetRenderEventFunc (), 7000);
-
 			}
+
 			if (listVideoPts.Count > 0) {
 				float fpts =  listVideoPts.Dequeue();
 
 				if (fLastFrameTime == 0) {
-					
-				  /*  if (fpts > fCurrentSeekTime) {
-						fLastFrameTime = fCurrentSeekTime;
-					} else*/
-					{
+					// if (fpts > fCurrentSeekTime) {
+					// 	fLastFrameTime = fCurrentSeekTime;
+					// } else
+					// {
 						if (fpts<0) {
 							fLastFrameTime = 0;
 
@@ -2417,12 +2393,13 @@ public class MediaPlayerCtrl : MonoBehaviour
 							audioSource.time = fLastFrameTime%600.0f;
 
 						}
-					}
+					// }
 				} else {
-					if (fpts<=0)
+					if (fpts<=0) {
 						fLastFrameTime = fCurrentSeekTime - 0.05f;
-					else
+					} else {
 						fLastFrameTime = fpts;
+					}
 				}
 
 			}
@@ -2435,7 +2412,6 @@ public class MediaPlayerCtrl : MonoBehaviour
 					//Debug.Log("sync2");
 					audioSource.time = fLastFrameTime%600.0f;
 				}
-
 			}
 
 			#else
@@ -2539,7 +2515,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 										/*if (listAudioPts [i] > (int)((float)pAudioCodecContext->sample_rate * ((float)listAudioPtsTime [i] + ((float)Call_GetDuration () / 1000.0f)))) {
 									audioClip.SetData (listAudio [i], (int)(((double)pAudioCodecContext->sample_rate) * listAudioPtsTime [i]));
 								} else*/ {
-											//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]   +" " +  fLastFrameTime);
+											//Debug.Log(audioSource.time  + " " + (float)listAudioPtsTime[i]  + " " +listAudioPts [i]	+" " +  fLastFrameTime);
 
 											audioClip.SetData(listAudio[i],(int)(listAudioPts[i] %  (pAudioCodecContext->sample_rate * 600.0f))  );
 
@@ -2555,13 +2531,13 @@ public class MediaPlayerCtrl : MonoBehaviour
 					}
 
 				} 
-		  
+			
 
-				}//while(fLastFrameTime < fCurrentSeekTime );
+				} //while(fLastFrameTime < fCurrentSeekTime );
 
 			//Debug.Log(listAudio.Count);
 
-   
+	
 
 		}
 
@@ -2615,7 +2591,7 @@ public class MediaPlayerCtrl : MonoBehaviour
 		listVideo.Clear();
 		listVideoPts.Clear();
 
-   
+	
 
 		ffmpeg.avcodec_flush_buffers (pCodecContext);
 
