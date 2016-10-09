@@ -375,7 +375,10 @@ public class MediaPlayerCtrl : MonoBehaviour
 				Debug.Log("here");
 				string strURL = "week5_360_TB.mp4";
 				string sd_path = "file://" + Application.persistentDataPath + "/" + strURL;
+				sd_path = "http://cdn.cs50.net/2016/fall/lectures/4/week4-vr_360_TB.mp4";
 				Call_Load(sd_path, 0);
+
+				//Handheld.PlayFullScreenMovie("http://cdn.cs50.net/2016/fall/lectures/5/week5_360_TB.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
 
 				// Stream
 				//StartCoroutine( DownloadStreamingVideoAndLoad("http://cdn.cs50.net/2016/fall/lectures/5/week5_360_TB.mp4") );
